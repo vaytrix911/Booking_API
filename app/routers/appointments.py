@@ -1,9 +1,9 @@
 from fastapi import APIRouter,Depends,HTTPException
-from schemas import AppointmentCreate,AppointmentResponse,AppointmentUpdate
-from models import User
-from dependencies import get_current_user,get_db
+from app.schemas import AppointmentCreate,AppointmentResponse,AppointmentUpdate
+from app.models import User
+from app.dependencies import get_current_user,get_db
 from sqlalchemy.orm import Session
-from models import Appointment
+from app.models import Appointment
 
 router = APIRouter()
 

@@ -3,10 +3,10 @@ from jose import JWTError,jwt
 import os
 from dotenv import load_dotenv
 from fastapi.security import OAuth2PasswordBearer
-from database import get_db
+from app.database import get_db
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from models import User
+from app.models import User
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
