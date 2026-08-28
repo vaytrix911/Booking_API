@@ -1,4 +1,11 @@
 from passlib.context import CryptContext
+from datetime import timedelta,datetime
+from python-jose import jwt
+from dotenv import load_dotenv
+import os
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def hash_password(password: str) -> str:
     hashed_password = pwd_context.hash(password)
