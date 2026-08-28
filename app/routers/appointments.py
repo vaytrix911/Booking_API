@@ -4,6 +4,7 @@ from app.models import User
 from app.dependencies import get_current_user,get_db
 from sqlalchemy.orm import Session
 from app.models import Appointment
+from app.database import get_db
 
 router = APIRouter()
 
