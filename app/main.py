@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import auth, appointments
+from app.routers import auth, appointments
 
 app = FastAPI()
 
