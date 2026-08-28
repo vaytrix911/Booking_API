@@ -1,6 +1,6 @@
 from sqlalchemy import Column,Integer,String,DateTime,ForeignKey
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 class User(Base):
     id = Column(Integer,primary_key=True,index=True)
     username = Column(String,nullable=False,unique=True)
