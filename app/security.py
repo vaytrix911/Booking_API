@@ -1,6 +1,6 @@
 from passlib.context import CryptContext
 from datetime import timedelta,datetime
-from python-jose import jwt
+from jose import jwt
 from dotenv import load_dotenv
 import os
 load_dotenv()

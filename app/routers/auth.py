@@ -33,6 +33,3 @@ def login(logreq:LoginRequest,db:Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     token = create_access_token({"sub": str(user.id)})
     return Token(access_token=token, token_type="bearer")
-@router.get("/just_check")
-def check_pass():
-    return {f"ALGORITHM":f"{SECRET_KEY}"}
