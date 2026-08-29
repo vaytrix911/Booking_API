@@ -13,6 +13,8 @@ def add_appointments(
                     appointment:AppointmentCreate,
                     db:Session = Depends(get_db),
                     current_user:User = Depends(get_current_user)):
+    if appointment.end_time <= appointment.start_time:
+        raise HTTPException(status_code=400, detail="end_time must be after start_time")
     existing_appointments = db.query(Appointment).filter(Appointment.owner_id == current_user.id).all()
     for existing in existing_appointments:
         if appointment.start_time < existing.end_time and appointment.end_time > existing.start_time:
@@ -52,6 +54,8 @@ def update_appointments(updates:AppointmentUpdate,appointment_id:int,db:Session=
     for field,value in update_data.items():
         setattr(appointment,field,value)
 
+    if appointment.end_time <= appointment.start_time:
+        raise HTTPException(status_code=400, detail="end_time must be after start_time")
     existing_appointments = db.query(Appointment).filter(Appointment.owner_id == current_user.id).all()
     for existing in existing_appointments:
         if existing.id == appointment_id:

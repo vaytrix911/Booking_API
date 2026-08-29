@@ -1,9 +1,10 @@
-from pydantic import BaseModel,ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Optional
 from datetime import datetime
+
 class UserCreate(BaseModel):
-    username : str
-    password : str
+    username: str
+    password: str = Field(min_length=6)
 class UserResponse(BaseModel):
     id : int
     username : str

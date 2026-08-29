@@ -14,6 +14,9 @@ ALGORITHM = os.getenv("ALGORITHM")
 router = APIRouter()
 @router.post("/register", response_model=UserResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(User).filter(User.username == user.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="username already exists")
     hashed_password = hash_password(user.password)
     new_user = User(
         username = user.username,
@@ -24,10 +27,10 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 @router.post("/login")
-def login(logreq:LoginRequest,db:Session = Depends(get_db)):
+def login(logreq: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == logreq.username).first()
     if not user:
-        raise HTTPException(status_code=404,detail="user not found")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
     verified = verify_password(logreq.password, user.password_hash)
     if not verified:
         raise HTTPException(status_code=401, detail="Invalid credentials")
