@@ -34,5 +34,5 @@ def login(logreq: LoginRequest, db: Session = Depends(get_db)):
     verified = verify_password(logreq.password, user.password_hash)
     if not verified:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = create_access_token({"sub": str(user.id)})
+    token = create_access_token(int(payload.get("sub")))
     return Token(access_token=token, token_type="bearer")
